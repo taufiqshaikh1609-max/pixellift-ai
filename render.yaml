@@ -1,0 +1,35 @@
+# Free-tier demo deployment: Render web service + a separate Neon database.
+# Render Dashboard -> New -> Blueprint -> connect this repository.
+# Set DATABASE_URL in Render's private environment-variable form, not in Git.
+# Free plans have quotas, cold starts, and can change; check provider terms.
+services:
+  - type: web
+    name: pixellift-ai
+    runtime: node
+    plan: free
+    # Free services do not support preDeployCommand. For this initial demo,
+    # sync a dedicated database during the build, without destructive --force.
+    # Review schema changes and switch to versioned migrations for production.
+    buildCommand: >-
+      npm ci --include=dev
+      && npm run build
+      && mkdir -p .next/standalone/.next/static .next/standalone/public
+      && cp -R .next/static/. .next/standalone/.next/static/
+      && ( [ ! -d public ] || cp -R public/. .next/standalone/public/ )
+      && npx drizzle-kit push --config=drizzle.config.ts
+    startCommand: node .next/standalone/server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: NODE_VERSION
+        value: "22"
+      - key: HOSTNAME
+        value: "0.0.0.0"
+      # Conservative demo limits, not a guarantee against memory exhaustion.
+      - key: MAX_UPLOAD_MB
+        value: "6"
+      - key: MAX_JOBS
+        value: "12"
+      - key: MAX_OUTPUT_DIMENSION
+        value: "4096"

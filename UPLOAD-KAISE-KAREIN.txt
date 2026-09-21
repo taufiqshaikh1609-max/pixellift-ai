@@ -1,0 +1,36 @@
+PIXELLIFT AI — GITHUB PAR UPLOAD KARNE KE STEPS
+
+1. Download ki ZIP par right-click karke Extract All / Extract karein.
+   Windows ka compressed ZIP view nahi, extracted folder kholein.
+
+2. Folder ke andar package.json, package-lock.json, render.yaml aur src
+   folder dikhna chahiye. Isi folder ke ANDAR ki cheezein upload karni hain.
+
+3. GitHub ki khaali repository ke Quick setup box mein
+   "uploading an existing file" par click karein.
+
+4. Extracted folder ke saare files AUR folders select karke GitHub ke
+   upload area mein drag and drop karein. Folder structure rehna chahiye:
+   src/app/page.tsx, src/db/schema.ts, etc.
+
+   ZIP file ko upload NA karein.
+   Poora bahar wala pixellift-ai-source folder upload NA karein.
+   package.json aur render.yaml repo ke seedhe root mein hone chahiye.
+
+   Agar .gitignore hidden hai: Windows mein View > Show > Hidden items;
+   macOS mein Command + Shift + . se hidden files dikhayein.
+
+5. Upload poora hone dein. Commit message mein "Upload PixelLift website"
+   likhein aur Commit changes se main branch mein save karein.
+
+6. Repo refresh karke package.json, render.yaml aur src verify karein.
+   Agla step Neon database + Render deploy hai: DEPLOY-HINDI.md dekhein.
+
+IMPORTANT:
+- Kisi ko token, password, OTP ya database URL mat bhejein.
+- Is ZIP mein real .env, photos, Git history aur node_modules nahi hain.
+- .env.example mein sirf placeholder hai; actual DATABASE_URL sirf
+  Render ke private environment-variable settings mein set karein.
+- GitHub par source upload hona website ka live deploy nahi hota.
+- Ye source bundle Render/Neon deployment ke liye hai. Python export script
+  optional hai; Next.js website chalane ke liye Python ki zaroorat nahi.
